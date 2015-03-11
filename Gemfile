@@ -52,3 +52,4 @@ gem 'mini_magick'
 gem 'payola-payments'
 gem "active_model_serializers" # use the best json evar
 gem 'friendly_id', '~> 5.1.0'
+gem 'rails_12factor'
