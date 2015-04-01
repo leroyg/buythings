@@ -1,6 +1,5 @@
 class CartController < ApplicationController
 
-  @cart = Cart.new ##This is BROKEN
 
   def update
     @cart = Cart.find session[:cart_id]
@@ -8,19 +7,17 @@ class CartController < ApplicationController
     @cart_item.update params.require(:cart_item).permit(:quantity)
     @cart_item.destroy if @cart_item.quantity == 0
     redirect_to cart_path
-
   end
 
   def add
     # fetch product
     @product = Product.find params[:product_id]
+    cart = Cart.find_by id: session[:cart_id]
     # fetch cart or create cart
-    cart_id = session[:cart_id]
-    if cart_id.nil?
+    cart = Cart.find_by id: session[:cart_id]
+    if cart.nil?
       cart = Cart.create
       session[:cart_id] = cart.id
-    else
-      cart = Cart.find cart_id
     end
 
     # create cart_item in cart for product
